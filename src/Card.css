@@ -1,0 +1,18 @@
+.card-container {
+    width: 120px;
+    height: 120px;
+    background: gray;
+    border-radius: 10px;
+    box-shadow: 3px 3px 20px 0px #ff0016;
+    padding: 8px;
+}
+
+.title {
+    color: white;
+    text-align: center;
+    margin: 0;
+}
+
+.content {
+    color: white;
+}
