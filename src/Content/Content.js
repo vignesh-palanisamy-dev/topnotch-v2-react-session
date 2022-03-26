@@ -3,6 +3,8 @@ import Card from "../Card/Card";
 import "./Content.css";
 
 const Content = () => {
+  const [selectedItemName, setSelectedItemName] = React.useState("Saranya");
+
   const feMaleList = [
     { ttl: "Title1", name: "Saranya", gen: "f" },
     { ttl: "Title1", name: "Indhu", gen: "f" },
@@ -17,12 +19,24 @@ const Content = () => {
     { ttl: "Title1", name: "Illaya", gen: "m" },
   ];
 
+  const handleClick = (selectedCardName) => {
+    setSelectedItemName(selectedCardName);
+  };
+
   return (
     <div className="container">
       <h4>Start</h4>
-      {[...feMaleList, ...maleList].map((userData) => {
+      {[...feMaleList, ...maleList].map((userData, index) => {
         const { ttl, name, gen } = userData;
-        return <Card title={ttl} name={name} gender={gen}></Card>;
+        return (
+          <Card
+            title={ttl}
+            name={name}
+            gender={gen}
+            isSelected={selectedItemName === name}
+            handleClick={handleClick}
+          ></Card>
+        );
       })}
       <h4>end</h4>
     </div>

@@ -7,9 +7,9 @@ const App = () => {
   return (
     // React Fragment <> </>
     <>
-      <Counter></Counter>
-      {/* <Header></Header> */}
-      {/* <Content></Content> */}
+      {/* <Counter></Counter> */}
+      <Header></Header>
+      <Content></Content>
     </>
   );
 };

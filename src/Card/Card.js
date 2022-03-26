@@ -1,12 +1,17 @@
 import "./Card.css";
 
 const CardItem = (props) => {
-  const { title, name, gender } = props;
+  const { title, name, gender, isSelected, handleClick } = props;
 
-  const onClick = () => {};
+  const onClick = () => {
+    handleClick(name);
+  };
 
   return (
-    <div className="card-container" onClick={onClick}>
+    <div
+      className={`card-container ${isSelected ? "is-selected" : ""}`}
+      onClick={onClick}
+    >
       <h3 className="title">{title}</h3>
       <span className="content">
         <span>Name</span> : {gender === "f" ? `Mrs.${name}` : `Mr.${name}`}
