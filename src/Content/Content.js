@@ -3,21 +3,21 @@ import Card from "../Card/Card";
 import "./Content.css";
 
 const Content = () => {
-  const [selectedItemName, setSelectedItemName] = React.useState("Saranya");
+  const [selectedItemName, setSelectedItemName] = React.useState();
+  const [showSpinner, setShowSpinner] = React.useState(false);
+  const [dataList, setDataList] = React.useState([]);
 
-  const feMaleList = [
-    { ttl: "Title1", name: "Saranya", gen: "f" },
-    { ttl: "Title1", name: "Indhu", gen: "f" },
-    { ttl: "Title1", name: "Ajitha", gen: "f" },
-    { ttl: "Title1", name: "Madhu", gen: "f" },
-  ];
-
-  const maleList = [
-    { ttl: "Title1", name: "Yogesh", gen: "m" },
-    { ttl: "Title1", name: "Ajith", gen: "m" },
-    { ttl: "Title1", name: "Kiruba", gen: "m" },
-    { ttl: "Title1", name: "Illaya", gen: "m" },
-  ];
+  React.useEffect(() => {
+    console.log("USE EFFECT CALLED");
+    setShowSpinner(true);
+    
+    fetch("https://api.publicapis.org/entries")
+      .then((res) => res.json())
+      .then((data) => {
+        setDataList(data.entries);
+        setShowSpinner(false);
+      });
+  }, []);
 
   const handleClick = (selectedCardName) => {
     setSelectedItemName(selectedCardName);
@@ -25,20 +25,22 @@ const Content = () => {
 
   return (
     <div className="container">
-      <h4>Start</h4>
-      {[...feMaleList, ...maleList].map((userData, index) => {
-        const { ttl, name, gen } = userData;
-        return (
-          <Card
-            title={ttl}
-            name={name}
-            gender={gen}
-            isSelected={selectedItemName === name}
-            handleClick={handleClick}
-          ></Card>
-        );
-      })}
-      <h4>end</h4>
+      {showSpinner ? (
+        <h1>Loading !!!</h1>
+      ) : (
+        dataList.map((userData) => {
+          const { API, Auth, Category } = userData;
+          return (
+            <Card
+              title={API}
+              name={Auth}
+              category={Category}
+              isSelected={selectedItemName === API}
+              handleClickAction={handleClick}
+            ></Card>
+          );
+        })
+      )}
     </div>
   );
 };
